@@ -1,7 +1,7 @@
 import qrcode
 
-# LINK donde estará tu carta (ejemplo: subido a GitHub Pages o Drive público)
-url = "https://tu_enlace_a_la_carta.com/index.html"
+# Pega aquí tu enlace público de GitHub Pages
+url = "https://VictorSoto18.github.io/carta-san-valentin/"
 
 # Crear QR
 qr = qrcode.QRCode(
