@@ -1,3 +1,4 @@
+# carta.py
 html = """<!DOCTYPE html>
 <html lang="es">
 <head>
@@ -82,22 +83,22 @@ html = """<!DOCTYPE html>
     <div class="corazon">❤️</div>
     <h1>Feliz San Valentín</h1>
     <p id="mensaje">
-        Tengo algo importante que preguntarte...
+        Tengo algo importante que preguntarte, no podía permitir pasar esta fecha sin hacerlo especial y espero te guste mi idea de hacerte esta pregunta...
     </p>
-    <!-- Botón original con id -->
+    <!-- Botón original -->
     <button id="btn-original" onclick="mostrarMensaje()">💌 Presiona aquí</button>
-    
+
     <!-- Botones Sí/No se agregan dinámicamente -->
     <div id="botones-si-no"></div>
 </div>
 
 <script>
 function mostrarMensaje() {
-    // Ocultar el botón original
-    document.getElementById("btn-original").style.display = "none";
-
     document.getElementById("mensaje").innerHTML =
         "¿Quieres ser mi San Valentín? 💕🥰";
+
+    // Ocultar botón original
+    document.getElementById("btn-original").style.display = "none";
 
     // Crear botones Sí y No
     let contenedor = document.getElementById("botones-si-no");
@@ -113,7 +114,9 @@ function mostrarMensaje() {
 }
 
 function presionarSi() {
-    document.getElementById("mensaje").innerHTML = "¡Me alegra que digas Sí! ❤️";
+    document.getElementById("mensaje").innerHTML = 
+        "¡Te amo mi princesa! Te prometo que será especial, espero te guste la sorpresita, ¡te amo chulaaaa! ❤️";
+    
     let corazon = document.createElement("div");
     corazon.className = "corazon-enorme";
     corazon.innerText = "❤️";
@@ -147,4 +150,4 @@ function moverBoton(event) {
 with open("index.html", "w", encoding="utf-8") as f:
     f.write(html)
 
-print("✨ Proyecto actualizado: el botón 'Presiona aquí' desaparece al presionarlo.")
+print("✨ Proyecto actualizado: botón original desaparece, botón No se mueve y Sí muestra corazón gigante.")
