@@ -43,7 +43,7 @@ html = """<!DOCTYPE html>
             color: white;
             cursor: pointer;
             position: relative;
-            transition: all 0.2s;
+            transition: all 0.3s;
         }
 
         button:hover {
@@ -71,6 +71,8 @@ html = """<!DOCTYPE html>
 
         #botones-si-no {
             margin-top: 20px;
+            position: relative;
+            height: 50px;
         }
     </style>
 </head>
@@ -82,8 +84,8 @@ html = """<!DOCTYPE html>
     <p id="mensaje">
         Tengo algo importante que preguntarte...
     </p>
-    <!-- Botón original -->
-    <button onclick="mostrarMensaje()">💌 Presiona aquí</button>
+    <!-- Botón original con id para ocultarlo -->
+    <button id="btn-original" onclick="mostrarMensaje()">💌 Presiona aquí</button>
     
     <!-- Botones Sí/No se agregan dinámicamente -->
     <div id="botones-si-no"></div>
@@ -94,6 +96,9 @@ function mostrarMensaje() {
     document.getElementById("mensaje").innerHTML =
         "¿Quieres ser mi San Valentín? 💕🥰";
 
+    // Ocultar el botón original
+    document.getElementById("btn-original").style.display = "none";
+
     // Crear botones Sí y No
     let contenedor = document.getElementById("botones-si-no");
     contenedor.innerHTML = `
@@ -101,7 +106,7 @@ function mostrarMensaje() {
         <button id="btn-no">No 😢</button>
     `;
 
-    // Agregar evento para que el botón No huya del mouse
+    // Botón No se mueve dentro de la carta
     let btnNo = document.getElementById("btn-no");
     btnNo.addEventListener("mousemove", moverBoton);
     btnNo.addEventListener("click", moverBoton);
@@ -120,8 +125,12 @@ function presionarSi() {
 
 function moverBoton(event) {
     let btnNo = event.target;
-    let maxX = window.innerWidth - btnNo.offsetWidth - 20;
-    let maxY = window.innerHeight - btnNo.offsetHeight - 20;
+    let carta = document.querySelector(".carta");
+
+    // Limites dentro de la carta
+    let maxX = carta.clientWidth - btnNo.offsetWidth - 20;
+    let maxY = carta.clientHeight - btnNo.offsetHeight - 20;
+
     let randX = Math.floor(Math.random() * maxX);
     let randY = Math.floor(Math.random() * maxY);
 
@@ -135,7 +144,7 @@ function moverBoton(event) {
 </html>
 """
 
-with open("../html/index.html", "w", encoding="utf-8") as f:
+with open("index.html", "w", encoding="utf-8") as f:
     f.write(html)
 
-print("✨ Proyecto actualizado con botón No que huye al mouse. Abre html/index.html")
+print("✨ Proyecto actualizado: el botón original desaparece al presionarlo y aparecen Sí/No con interacción.")
