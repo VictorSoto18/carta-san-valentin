@@ -84,7 +84,7 @@ html = """<!DOCTYPE html>
     <p id="mensaje">
         Tengo algo importante que preguntarte...
     </p>
-    <!-- Botón original con id para ocultarlo -->
+    <!-- Botón original con id -->
     <button id="btn-original" onclick="mostrarMensaje()">💌 Presiona aquí</button>
     
     <!-- Botones Sí/No se agregan dinámicamente -->
@@ -93,11 +93,11 @@ html = """<!DOCTYPE html>
 
 <script>
 function mostrarMensaje() {
-    document.getElementById("mensaje").innerHTML =
-        "¿Quieres ser mi San Valentín? 💕🥰";
-
     // Ocultar el botón original
     document.getElementById("btn-original").style.display = "none";
+
+    document.getElementById("mensaje").innerHTML =
+        "¿Quieres ser mi San Valentín? 💕🥰";
 
     // Crear botones Sí y No
     let contenedor = document.getElementById("botones-si-no");
@@ -147,4 +147,4 @@ function moverBoton(event) {
 with open("index.html", "w", encoding="utf-8") as f:
     f.write(html)
 
-print("✨ Proyecto actualizado: el botón original desaparece al presionarlo y aparecen Sí/No con interacción.")
+print("✨ Proyecto actualizado: el botón 'Presiona aquí' desaparece al presionarlo.")
