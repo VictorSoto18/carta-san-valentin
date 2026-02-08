@@ -11,6 +11,7 @@ html = """<!DOCTYPE html>
             justify-content: center;
             align-items: center;
             height: 100vh;
+            overflow: hidden;
         }
 
         .carta {
@@ -20,6 +21,7 @@ html = """<!DOCTYPE html>
             width: 350px;
             text-align: center;
             box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+            position: relative;
         }
 
         h1 {
@@ -32,7 +34,7 @@ html = """<!DOCTYPE html>
         }
 
         button {
-            margin-top: 20px;
+            margin: 10px;
             padding: 10px 20px;
             font-size: 16px;
             border: none;
@@ -40,13 +42,14 @@ html = """<!DOCTYPE html>
             background: #e63946;
             color: white;
             cursor: pointer;
+            position: relative;
+            transition: all 0.2s;
         }
 
         button:hover {
             background: #d62828;
         }
 
-        /* CORAZÓN LATIENDO */
         .corazon {
             font-size: 40px;
             display: inline-block;
@@ -58,6 +61,17 @@ html = """<!DOCTYPE html>
             50% { transform: scale(1.3); }
             100% { transform: scale(1); }
         }
+
+        .corazon-enorme {
+            font-size: 150px;
+            display: block;
+            margin: 20px auto;
+            animation: latido 1s infinite;
+        }
+
+        #botones-si-no {
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
@@ -68,13 +82,52 @@ html = """<!DOCTYPE html>
     <p id="mensaje">
         Tengo algo importante que preguntarte...
     </p>
+    <!-- Botón original -->
     <button onclick="mostrarMensaje()">💌 Presiona aquí</button>
+    
+    <!-- Botones Sí/No se agregan dinámicamente -->
+    <div id="botones-si-no"></div>
 </div>
 
 <script>
 function mostrarMensaje() {
     document.getElementById("mensaje").innerHTML =
-    "¿Quieres ser mi San Valentín? 💕🥰";
+        "¿Quieres ser mi San Valentín? 💕🥰";
+
+    // Crear botones Sí y No
+    let contenedor = document.getElementById("botones-si-no");
+    contenedor.innerHTML = `
+        <button id="btn-si" onclick="presionarSi()">Sí 💕</button>
+        <button id="btn-no">No 😢</button>
+    `;
+
+    // Agregar evento para que el botón No huya del mouse
+    let btnNo = document.getElementById("btn-no");
+    btnNo.addEventListener("mousemove", moverBoton);
+    btnNo.addEventListener("click", moverBoton);
+}
+
+function presionarSi() {
+    document.getElementById("mensaje").innerHTML = "¡Me alegra que digas Sí! ❤️";
+    let corazon = document.createElement("div");
+    corazon.className = "corazon-enorme";
+    corazon.innerText = "❤️";
+    document.querySelector(".carta").appendChild(corazon);
+
+    // Ocultar los botones Sí/No
+    document.getElementById("botones-si-no").style.display = "none";
+}
+
+function moverBoton(event) {
+    let btnNo = event.target;
+    let maxX = window.innerWidth - btnNo.offsetWidth - 20;
+    let maxY = window.innerHeight - btnNo.offsetHeight - 20;
+    let randX = Math.floor(Math.random() * maxX);
+    let randY = Math.floor(Math.random() * maxY);
+
+    btnNo.style.position = "absolute";
+    btnNo.style.left = randX + "px";
+    btnNo.style.top = randY + "px";
 }
 </script>
 
@@ -85,4 +138,4 @@ function mostrarMensaje() {
 with open("../html/index.html", "w", encoding="utf-8") as f:
     f.write(html)
 
-print("✨ Proyecto actualizado. Abre html/index.html")
+print("✨ Proyecto actualizado con botón No que huye al mouse. Abre html/index.html")
